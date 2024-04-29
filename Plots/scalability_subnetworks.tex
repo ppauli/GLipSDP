@@ -1,0 +1,44 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=4.521in,
+height=3.566in,
+at={(0.758in,0.481in)},
+scale only axis,
+xmin=1,
+xmax=5,
+xtick={1,2,3,4,5},
+xticklabels={{16},{8},{4},{2},{1}},
+ymode=log,
+ymin=7.414865,
+ymax=10000,
+yminorticks=true,
+axis background/.style={fill=white}
+]
+\addplot [color=mycolor1, forget plot]
+  table[row sep=crcr]{%
+1	215.886687\\
+2	484.162856\\
+3	997.515512\\
+4	2258.09747\\
+5	3673.156972\\
+};
+\addplot [color=mycolor2, forget plot]
+  table[row sep=crcr]{%
+1	7.414865\\
+2	17.039385\\
+3	27.089757\\
+4	51.231301\\
+5	114.759862\\
+};
+\end{axis}
+\end{tikzpicture}%
