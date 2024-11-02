@@ -3,7 +3,9 @@ clear all
 clc
 
 % Load model
-load(['models/weights_mnist_LeNet5_con.mat'])
+load(['models/weights_mnist_LeNet5_wd_con.mat'])
+
+savepath = 'results/mnist_LeNet5_wd.mat';
 
 %% GLipSDP
 
@@ -21,7 +23,7 @@ NN.pool_kernel  = [2,2];
 
 Lip_GLipSDP
 
-save(['results/mnist_LeNet5.mat'])
+save(savepath)
 
 %% S-GLipSDP
 
@@ -49,7 +51,7 @@ time_S_GLipSDP = time_conv+time_fc;
 
 Lip_S_GLipSDP
 
-save(['results/mnist_LeNet5.mat'])
+save(savepath)
 
 %% S-LipSDP
 
@@ -65,9 +67,9 @@ time1_LipSDP = toc;
 Lip_S_LipSDP = Lip1_LipSDP*Lip2_LipSDP;
 time_S_LipSDP = time1_LipSDP+time2_LipSDP;
 
-Lip_S_LipSDP*0.5*0.5
+Lip_S_LipSDP= Lip_S_LipSDP*0.5*0.5
 
-save(['results/mnist_LeNet5.mat'])
+save(savepath)
 
 %% MP
 
@@ -82,8 +84,8 @@ for ii = 1:5
     Lip_MP = Lip_MP*Lip_MP_s(ii);
 end
 
-Lip_MP*0.5*0.5
+Lip_MP=Lip_MP*0.5*0.5
 
 
 %% Save results
-save(['results/mnist_LeNet5.mat'])
+save(savepath)

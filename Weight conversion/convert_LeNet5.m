@@ -2,7 +2,7 @@ close all
 clear all
 clc
 
-load('weights_mnist_LeNet5.mat')
+load('New_weights_with_weight_decay/weights_mnist_LeNet5_wd.mat')
 
 W{1} = double(weights.('layer1.0.weight'));
 W{2} = double(weights.('layer2.0.weight'));
