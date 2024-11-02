@@ -2,7 +2,9 @@ close all
 clear all
 clc
 
-load('models/weights_cifar_6C2F_con.mat')
+load('models/weights_cifar_6C2F_wd_con.mat')
+
+savepath = 'results/cifar_6C2F_wd.mat';
 
 %% S-GLipSDP
 
@@ -50,7 +52,7 @@ time_S_GLipSDP = time1+time2+time3+time4
 
 Lip_S_GLipSDP
 
-save('results/mnist_main_6C2F.mat')
+save(savepath)
 
 %% S-LipSDP
 
@@ -71,7 +73,7 @@ time_S_LipSDP = time1_LipSDP+time2_LipSDP+time3_LipSDP+time4_LipSDP;
 
 Lip_S_LipSDP
 
-save('results/mnist_main_6C2F.mat')
+save(savepath)
 
 %% MP
 
@@ -90,4 +92,4 @@ end
 Lip_MP
 
 %% Save results
-save('results/mnist_main_6C2F.mat')
+save(savepath)

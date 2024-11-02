@@ -3,7 +3,9 @@ clear all
 clc
 
 % Load model
-load('models/weights_mnist_4C3F_wd_con.mat')
+load('models/weights_mnist_4C3F_wd_3_con.mat')
+
+savepath = 'results/mnist_4C3F_3_wd.mat';
 
 %% GLipSDP
 % 
@@ -36,17 +38,24 @@ NNconv.pool_kernel  = [0,0,0,0];
 [Lip_conv,info_conv,time_conv] = LipEst(NNconv);
 
 tic
-Lip2 = norm(W{5});
-Lip3 = norm(W{6});
-Lip4 = norm(W{7});
-time_fc = toc;
+Lip_fc1 = norm(W{5});
+time_fc1 = toc;
 
-Lip_S_GLipSDP = Lip_conv*Lip2*Lip3*Lip4;
-time_S_GLipSDP = time_conv+time_fc;
+NNfc = init_NN;
+NNfc.layers = {'subn_fc'};
+
+W2{1}{1} = W{6};
+W2{1}{2} = W{7};
+NNfc.weights = W2;
+
+[Lip_fc2,info_fc2,time_fc2] = LipEst(NNfc);
+
+Lip_S_GLipSDP = Lip_conv*Lip_fc1*Lip_fc2;
+time_S_GLipSDP = time_conv+time_fc1+time_fc2;
 
 Lip_S_GLipSDP
 
-save('results/mnist_main_4C3F.mat')
+save(savepath)
 
 %% MP
 
@@ -57,7 +66,7 @@ W_fc{4} = conv2fc(W{4},16,16,2,0);
 
 tic
 for ii = 1:length(W_fc)
-    Lip_MP_s(ii) = norm(W_c2fc{ii});
+    Lip_MP_s(ii) = norm(W_fc{ii});
 end
 for ii = length(W_fc)+1:length(W)
     Lip_MP_s(ii) = norm(W{ii});
@@ -86,4 +95,4 @@ time_S_LipSDP = time2_LipSDP+time_norms;
 Lip_S_LipSDP
 
 %% Save results
-save('results/mnist_main_4C3F.mat')
+save(savepath)

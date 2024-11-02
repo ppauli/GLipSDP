@@ -2,7 +2,7 @@ import torch
 from compute_lip import *
 import numpy as np
 
-ckpt = torch.load('Scalability2/weights/mnist_2C2F_wd.pth','cpu')
+ckpt = torch.load('models/cifar_6C2F_wd_2.pth','cpu')
 
 items_list = list(ckpt.items())
 
@@ -12,11 +12,9 @@ for k, v in ckpt.items():
         if 'weight' in k:
             W.append(v)
 
-stride_vec = [(2,2),(2,2),(),()]
-#stride_vec = [(1,1),(2,2),(1,1),(2,2),(),(),()]
+stride_vec = [(1,1),(1,1),(2,2),(1,1),(1,1),(2,2),(),()]
 padding = (1,1)
-input_size_vec = [(1,1,28,28), (1,16,14,14), (1,1568), (1,100)] # use for 2C2F
-#input_size_vec = [(1,1,28,28), (1,32,28,28), (1,32,14,14), (1,64,14,14), (1,7*7*64), (1,512), (1,512)]
+input_size_vec = [(1,3,32,32), (1,32,32,32), (1,32,32,32), (1,32,16,16), (1,64,16,16), (1,64,16,16), (1,64*8*8), (1,512)] # use for 2C2F
 
 start_time = time.time()
 
@@ -29,7 +27,7 @@ for kk in range(len(W) - 1):
         H_list.append(W[jj + 1]* 0.5)
         strides.append(stride_vec[jj + 1])
 
-    tmp = lipschitz_general(H_list, (1,1,28,28), strides, padding, iter = 1000)
+    tmp = lipschitz_general(H_list, input_size_vec[0], strides, padding, iter = 1000)
 
     sum_val = 0
     for jj in range(kk + 1):
@@ -44,10 +42,10 @@ for kk in range(len(W) - 1):
 
     m.append(tmp + 0.5 * sum_val)
 
-        # Calculate the elapsed time
+# Calculate the elapsed time
 elapsed_time = time.time() - start_time
 
-    # Return the final Lip and elapsed time
+# Return the final Lip and elapsed time
 Lip = m[-1]
 print(Lip)
 

@@ -2,7 +2,7 @@ close all
 clear all
 clc
 
-load('weights_cifar_6C2F.mat')
+load('New_weights_with_weight_decay/weights_cifar_6C2F_wd_2.mat')
 
 W{1} = double(weights.('conv1.weight'));
 W{2} = double(weights.('conv2.weight'));

@@ -1,0 +1,240 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.00000,0.44700,0.74100}%
+\definecolor{mycolor2}{rgb}{0.85000,0.32500,0.09800}%
+\definecolor{mycolor3}{rgb}{0.92900,0.69400,0.12500}%
+\definecolor{mycolor4}{rgb}{0.49400,0.18400,0.55600}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=1.22in,
+height=1.244in,
+at={(0.474in,2.129in)},
+scale only axis,
+bar shift auto,
+xmin=0.509090909090909,
+xmax=3.49090909090909,
+xtick={1,2,3},
+xticklabels={{2},{4},{8},{16}},
+xlabel style={font=\color{white!15!black}},
+xlabel={$c=8$},
+ymin=0,
+ymax=1,
+ylabel style={font=\color{white!15!black}},
+ylabel={$\rho$},
+axis background/.style={fill=white},
+legend style={at={(0.5,0.97)}, anchor=north, legend columns=4, legend cell align=left, align=left, draw=white!15!black}
+]
+\addplot[ybar, bar width=0.145, fill=mycolor1, draw=black, area legend] table[row sep=crcr] {%
+1	0.375714571536711\\
+2	0.0375918742289257\\
+3	0.00268524635822329\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\addlegendentry{LipSDP}
+
+\addplot[ybar, bar width=0.145, fill=mycolor2, draw=black, area legend] table[row sep=crcr] {%
+1	0.375714580346385\\
+2	0.0375919807287237\\
+3	0.0026871762704931\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\addlegendentry{GLipSDP}
+
+\addplot[ybar, bar width=0.145, fill=mycolor3, draw=black, area legend] table[row sep=crcr] {%
+1	0.601074509839743\\
+2	0.17299829348538\\
+3	0.0408857076985579\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\addlegendentry{LipLT}
+
+\addplot[ybar, bar width=0.145, fill=mycolor4, draw=black, area legend] table[row sep=crcr] {%
+1	1\\
+2	0.999999999999999\\
+3	0.999999999999999\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\addlegendentry{MP}
+
+\end{axis}
+
+\begin{axis}[%
+width=1.22in,
+height=1.244in,
+at={(2.079in,2.129in)},
+scale only axis,
+bar shift auto,
+xmin=0.509090909090909,
+xmax=3.49090909090909,
+xtick={1,2,3},
+xticklabels={{2},{4},{8},{16}},
+xlabel style={font=\color{white!15!black}},
+xlabel={$c=16$},
+ymin=0,
+ymax=1,
+axis background/.style={fill=white}
+]
+\addplot[ybar, bar width=0.145, fill=mycolor1, draw=black, area legend] table[row sep=crcr] {%
+1	0.33707929151312\\
+2	0.0854851993178702\\
+3	0.00309420249363995\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\addplot[ybar, bar width=0.145, fill=mycolor2, draw=black, area legend] table[row sep=crcr] {%
+1	0.337079321046375\\
+2	0.0854852958986839\\
+3	0.00309532950483082\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\addplot[ybar, bar width=0.145, fill=mycolor3, draw=black, area legend] table[row sep=crcr] {%
+1	0.610664457664857\\
+2	0.284638448844299\\
+3	0.0530147464440114\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\addplot[ybar, bar width=0.145, fill=mycolor4, draw=black, area legend] table[row sep=crcr] {%
+1	0.999999999999999\\
+2	1\\
+3	1\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\end{axis}
+
+\begin{axis}[%
+width=1.22in,
+height=1.244in,
+at={(0.474in,0.401in)},
+scale only axis,
+bar shift auto,
+xmin=0.509090909090909,
+xmax=3.49090909090909,
+xtick={1,2,3},
+xticklabels={{2},{4},{8},{16}},
+xlabel style={font=\color{white!15!black}},
+xlabel={$c=32$},
+ymin=0,
+ymax=1,
+axis background/.style={fill=white}
+]
+\addplot[ybar, bar width=0.145, fill=mycolor1, draw=black, area legend] table[row sep=crcr] {%
+1	0.340266972650565\\
+2	0.0821182746537866\\
+3	0.00321079754796957\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\addplot[ybar, bar width=0.145, fill=mycolor2, draw=black, area legend] table[row sep=crcr] {%
+1	0.340266972851669\\
+2	0.0821182855592837\\
+3	0.00321166114966534\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\addplot[ybar, bar width=0.145, fill=mycolor3, draw=black, area legend] table[row sep=crcr] {%
+1	0.579979603486041\\
+2	0.269752611646788\\
+3	0.0467989436971469\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\addplot[ybar, bar width=0.145, fill=mycolor4, draw=black, area legend] table[row sep=crcr] {%
+1	1\\
+2	1\\
+3	1\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\end{axis}
+
+\begin{axis}[%
+width=1.22in,
+height=1.244in,
+at={(2.079in,0.401in)},
+scale only axis,
+bar shift auto,
+xmin=0.509090909090909,
+xmax=3.49090909090909,
+xtick={1,2,3},
+xticklabels={{2},{4},{8},{16}},
+xlabel style={font=\color{white!15!black}},
+xlabel={$c=64$},
+ymin=0,
+ymax=1,
+axis background/.style={fill=white}
+]
+\addplot[ybar, bar width=0.145, fill=mycolor1, draw=black, area legend] table[row sep=crcr] {%
+1	0.349521360428459\\
+2	0.0710224353724827\\
+3	0.00336947047215498\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\addplot[ybar, bar width=0.145, fill=mycolor2, draw=black, area legend] table[row sep=crcr] {%
+1	0.34952137178148\\
+2	0.0710224608120593\\
+3	0.003369589237388\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\addplot[ybar, bar width=0.145, fill=mycolor3, draw=black, area legend] table[row sep=crcr] {%
+1	0.561151290800264\\
+2	0.246978204751053\\
+3	0.0458583308108626\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\addplot[ybar, bar width=0.145, fill=mycolor4, draw=black, area legend] table[row sep=crcr] {%
+1	1\\
+2	0.999999999999999\\
+3	0.999999999999999\\
+};
+\addplot[forget plot, color=white!15!black] table[row sep=crcr] {%
+0.509090909090909	0\\
+3.49090909090909	0\\
+};
+\end{axis}
+\end{tikzpicture}%

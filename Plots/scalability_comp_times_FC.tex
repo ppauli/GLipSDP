@@ -1,0 +1,111 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=2.503in,
+height=1.341in,
+at={(0.42in,0.229in)},
+scale only axis,
+xmode=log,
+xmin=4,
+xmax=128,
+xtick={  2,   4,   8,  16,  32,  64, 128},
+xminorticks=true,
+xlabel style={font=\color{white!15!black}},
+xlabel={depth},
+ymode=log,
+ymin=0.01,
+ymax=10000,
+yminorticks=true,
+ylabel style={font=\color{white!15!black}},
+ylabel={time},
+axis background/.style={fill=white},
+legend style={at={(0.5,1.03)}, anchor=south, legend columns=4, legend cell align=left, align=left, draw=white!15!black}
+]
+\addplot [color=violet]
+  table[row sep=crcr]{%
+4	0.025471\\
+8	0.0178697\\
+16	0.0381433\\
+32	0.0587721\\
+64	0.1059703\\
+128	0.2667\\
+};
+\addlegendentry{$c=8$}
+
+\addplot [color=teal]
+  table[row sep=crcr]{%
+4	0.031116\\
+8	0.0751632\\
+16	0.227488\\
+32	0.4593614\\
+64	0.9763875\\
+128	1.8302008\\
+};
+\addlegendentry{$c=16$}
+
+\addplot [color=red!50!green]
+  table[row sep=crcr]{%
+4	0.4733557\\
+8	1.677989\\
+16	3.4664865\\
+32	6.5859245\\
+64	13.8222546\\
+128	23.9995818\\
+};
+\addlegendentry{$c=32$}
+
+\addplot [color=gray]
+  table[row sep=crcr]{%
+4	8.4603274\\
+8	23.8803126\\
+16	73.5247766\\
+32	148.0413328\\
+64	0\\
+128	0\\
+};
+\addlegendentry{$c=64$}
+
+\addplot [color=violet, dashed, forget plot]
+  table[row sep=crcr]{%
+4	0.0106876\\
+8	0.041944\\
+16	0.1415978\\
+32	0.5246597\\
+64	2.9696637\\
+128	21.2301701\\
+};
+\addplot [color=teal, dashed, forget plot]
+  table[row sep=crcr]{%
+4	0.0343984\\
+8	0.1559702\\
+16	0.8336288\\
+32	4.3984767\\
+64	26.6833822\\
+128	239.3150398\\
+};
+\addplot [color=red!50!green, dashed, forget plot]
+  table[row sep=crcr]{%
+4	0.1559148\\
+8	0.903839\\
+16	6.2743499\\
+32	35.3469625\\
+64	262.2341415\\
+128	2056.9260608\\
+};
+\addplot [color=gray, dashed, forget plot]
+  table[row sep=crcr]{%
+4	1.1838669\\
+8	6.2093277\\
+16	47.0452086\\
+32	318.029827\\
+64	0\\
+128	0\\
+};
+\end{axis}
+\end{tikzpicture}%
