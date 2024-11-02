@@ -5,7 +5,7 @@ clc
 % Load model
 load('models/weights_mnist_2C2F_wd_con.mat')
 
-sabvepath = 'results/mnist_2C2F_wd.mat';
+savepath = 'results/mnist_2C2F_wd.mat';
 
 %% GLipSDP
 
@@ -22,6 +22,8 @@ NN.pool_kernel  = [0,0];
 [Lip_GLipSDP,info_GlipSDP,time_GLipSDP] = LipEst(NN);
 
 Lip_GLipSDP
+
+save(savepath)
 
 %% S-GLipSDP
 

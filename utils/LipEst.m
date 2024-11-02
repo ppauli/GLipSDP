@@ -42,7 +42,7 @@ for ii = 1:depth-1
             [con, Qm] = get_con_conv(W{ii}, strides_ii, Qm, 0, pool{ii});
         case 'fc'
             if ii>=2
-                if strcmp(layers{ii-1},'conv') || strcmp(layers{ii-1},'subn_conv') || strcmp(layers{ii-1},'res_conv')
+                if strcmp(layers{ii-1},'conv') || strcmp(layers{ii-1},'subn_conv') || strcmp(layers{ii-1},'res_conv') || strcmp(layers{ii-1},'res_conv2')
                     nu_fc = size(W{ii},2);
                     nu_conv = size(Qm,2);
                     Qm = kron(Qm,eye(nu_fc/nu_conv)); % order reverse because of the default flattening operation
@@ -59,6 +59,11 @@ for ii = 1:depth-1
             [con, Qm] = get_con_subn_conv(W{ii}, strides_ii, Qm, 0, 1, pool{ii},cond);
         case 'res_fc'
             [con, Qm] = get_con_subn_fc(W{ii}, Qm, 0, 1, cond);
+        case 'res_conv2'
+            strides_ii = [strides(ii),pool_kernel(ii),pool_strides(ii)];
+            [con, Qm] = get_con_res_conv2(W{ii}, strides_ii, Qm, pool{ii}, 0);
+        case 'res_fc2'
+            [con, Qm] = get_con_res_fc2(W{ii}, Qm, 0);
     end
     cons = [cons,con];
 end
@@ -70,7 +75,7 @@ switch layer
         con = get_con_conv(W{depth}, strides_depth, Qm, 1, pool{depth});
     case 'fc'
         if depth>1
-            if strcmp(layers{depth-1},'conv') || strcmp(layers{depth-1},'subn_conv') || strcmp(layers{depth-1},'res_conv')
+            if strcmp(layers{depth-1},'conv') || strcmp(layers{depth-1},'subn_conv') || strcmp(layers{depth-1},'res_conv') || strcmp(layers{depth-1},'res_conv2')
                 nu_fc = size(W{depth},2);
                 nu_conv = size(Qm,2);
                 Qm = kron(Qm,eye(nu_fc/nu_conv)); % order reverse because of the default flattening operation
@@ -87,6 +92,11 @@ switch layer
         con = get_con_subn_conv(W{depth}, strides_depth, Qm, 1, 1, pool{depth}, cond);
     case 'res_fc'
         con = get_con_subn_fc(W{depth}, Qm, 1, 1, cond);
+    case 'res_conv2'
+        strides_ii = [strides(depth),pool_kernel(depth),pool_strides(depth)];
+        con = get_con_res_conv2(W{depth}, strides_ii, Qm, pool, 1);
+    case 'res_fc2'
+        con = get_con_res_fc2(W{depth}, Qm, 1);
 end
 cons = [cons,con];
 
@@ -116,11 +126,11 @@ if strides(1)>1
 end
 
 if last == 1
-    [~,Qm] = get_Q_conv(Qm,ny,pool,strides);
+    [~, Qm] = get_Q_conv(Qm,ny,pool,strides);
     con = [[P-A'*P*A-C'*C -A'*P*B-C'*D;...
         -B'*P*A-D'*C Qm-B'*P*B-D'*D]>=1E-10, P>=1E-10];
 else
-    [Q,Qm] = get_Q_conv(Qm,ny,pool,strides);
+    [Q, Qm] = get_Q_conv(Qm,ny,pool,strides);
     Lambda = diag(sdpvar(1,ny));
     con = [[P-A'*P*A -A'*P*B -C'*Lambda;...
         -B'*P*A Qm-B'*P*B -D'*Lambda;...
@@ -193,8 +203,8 @@ for ii = 1:depth
         M{ii} = -W{ii}'*W{ii};
     elseif (last == 1) && (ii == depth) && (res == 1)
         M11 = -eye(ny)*cond^(2*depth);
-        M12 = -W{ii}*cond^depth;...
-            M22 = -W{ii}'*W{ii};
+        M12 = -W{ii}*cond^depth;
+        M22 = -W{ii}'*W{ii};
     else
         lam = sdpvar(1,ny);
         Lambda = diag(lam);
@@ -254,6 +264,73 @@ else
 end
 
 cons = [cons, Mtot >= 10e-10];
+end
+
+function [cons,Q] = get_con_res_fc2(W, Qm, last)
+[ny,nu] = size(W{1});
+
+lam = sdpvar(1,ny);
+Lambda = diag(lam);
+
+if last == 1
+    Q = [];
+    M = [Qm-eye(nu) -W{1}'*Lambda-W{2};...
+        -Lambda*W{1}-W{2}' 2*Lambda-W{2}'*W{2}];
+else
+    Q = sdpvar(ny,ny);
+    M = [Qm-Q -W{1}'*Lambda-Q*W{2};...
+        -Lambda*W{1}-W{2}'*Q 2*Lambda-W{2}'*Q*W{2}];
+end
+
+cons = [M >= 10e-10];
+end
+
+function [cons,Q] = get_con_res_conv2(W, strides, Qm, pool, last)
+sys1 = getRoesser(W{1},1);
+A1 = sys1.A;
+B1 = sys1.B;
+C1 = sys1.C;
+D1 = sys1.D;
+
+nx1 = size(A1,strides(1));
+[nx1_1,nx1_2] = size(sys1.A12);
+[ny1,nu1] = size(D1);
+
+sys2 = getRoesser(W{2},1);
+A2 = sys2.A;
+B2 = sys2.B;
+C2 = sys2.C;
+D2 = sys2.D;
+
+nx2 = size(A2,strides(1));
+[nx2_1,nx2_2] = size(sys2.A12);
+[ny2,nu2] = size(D2);
+
+lam = sdpvar(1,ny1);
+Lambda = diag(lam);
+P1_1 = sdpvar(nx1_1,nx1_1);
+P1_2 = sdpvar(nx1_2,nx1_2);
+P2_1 = sdpvar(nx2_1,nx2_1);
+P2_2 = sdpvar(nx2_2,nx2_2);
+P1 = blkdiag(P1_1,P1_2);
+P2 = blkdiag(P2_1,P2_2);
+
+if last == 1
+    Q = [];
+    [~,Qm] = get_Q_conv(Qm,ny2,pool,strides);
+    M = [Qm-B1'*P1*B1-eye(nu1) -B1'*P1*A1     -D1'*Lambda-D2               -C2;...
+        -A1'*P1*B1             P1-A1'*P1*A1   -C1'*Lambda                  zeros(nx1,nx2);...
+        -Lambda*D1-D2'         -Lambda*C1     2*Lambda-B2'*P2*B2-D2'*D2    -B2'*P2*A2-D2'*C2;...
+        -C2'                   zeros(nx2,nx1) -A2'*P2*B2-C2'*D2            P2-A2'*P2*A2-C2'*C2];
+else
+    [Q,Qm] = get_Q_conv(Qm,ny2,pool,strides);
+    M = [Qm-B1'*P1*B1-Q  -B1'*P1*A1     -D1'*Lambda-Q*D2             -Q*C2;...
+        -A1'*P1*B1       P1-A1'*P1*A1   -C1'*Lambda                  zeros(nx1,nx2);...
+        -Lambda*D1-D2'*Q -Lambda*C1     2*Lambda-B2'*P2*B2-D2'*Q*D2  -B2'*P2*A2-D2'*Q*C2;...
+        -C2'*Q           zeros(nx2,nx1) -A2'*P2*B2-C2'*Q*D2          P2-A2'*P2*A2-C2'*Q*C2];
+end
+
+cons = [M >= 10e-10];
 end
 
 function [cons,Q] = get_con_subn_conv(W, strides, Qm, last, res, pool, cond)
@@ -377,12 +454,12 @@ end
 function [Q,Qm] = get_Q_conv(Qm,ny,pool,strides)
 if strcmp(pool,'max')
     mu = get_mu_max(strides(2),strides(3));
-    Q = diag(sdpvar(1,ny));
     Qm = 1/mu*Qm;
+    Q = diag(sdpvar(1,ny));
 elseif strcmp(pool,'av')
     mu = get_mu_av(strides(2),strides(3));
-    Q = mu*sdpvar(ny,ny);
     Qm = 1/mu*Qm;
+    Q = sdpvar(ny,ny);
 else
     Q = sdpvar(ny,ny);
 end
