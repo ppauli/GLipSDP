@@ -3,7 +3,9 @@ clear all
 clc
 
 % Load model
-load('models/weights_mnist_2C2F_con.mat')
+load('models/weights_mnist_2C2F_wd_con.mat')
+
+sabvepath = 'results/mnist_2C2F_wd.mat';
 
 %% GLipSDP
 
@@ -48,6 +50,8 @@ time_S_GLipSDP = time_conv+time_fc;
 
 Lip_S_GLipSDP
 
+save(savepath)
+
 %% S-LipSDP
 
 W_c2fc{1} = conv2fc(W{1},30,30,2,1);
@@ -61,7 +65,7 @@ time_S_LipSDP = time1_LipSDP+time2_LipSDP;
 
 Lip_S_LipSDP
 
-save('results/mnist_main_2C2F.mat')
+save(savepath)
 
 %% MP
 
@@ -78,5 +82,5 @@ end
 Lip_MP
 
 %% Save results
-save('results/mnist_main_2C2F.mat')
+save(savepath)
 
