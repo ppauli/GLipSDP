@@ -3,7 +3,9 @@ clear all
 clc
 
 % Load model
-load(['models/weights_cifar_LeNet5_con.mat'])
+load(['models/weights_cifar_LeNet5_wd_con.mat'])
+
+savepath = 'results/cifar_LeNet5_wd.mat';
 
 %% GLipSDP
 
@@ -21,7 +23,7 @@ NN.pool_kernel  = [2,2];
 
 Lip_GLipSDP
 
-save(['results/cifar_LeNet5.mat'])
+save(savepath)
 
 %% S-GLipSDP
 
@@ -49,7 +51,7 @@ time_S_GLipSDP = time_conv+time_fc;
 
 Lip_S_GLipSDP
 
-save(['results/cifar_LeNet5.mat'])
+save(savepath)
 
 %% S-LipSDP
 
@@ -67,7 +69,7 @@ time_S_LipSDP = time1_LipSDP+time2_LipSDP;
 
 Lip_S_LipSDP
 
-save(['results/cifar_LeNet5.mat'])
+save(savepath)
 
 %% MP
 
@@ -86,4 +88,4 @@ Lip_MP
 
 
 %% Save results
-save(['results/cifar_LeNet5.mat'])
+save(savepath)

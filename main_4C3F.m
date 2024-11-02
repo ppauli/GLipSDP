@@ -3,7 +3,7 @@ clear all
 clc
 
 % Load model
-load('models/weights_mnist_4C3F_con.mat')
+load('models/weights_mnist_4C3F_wd_con.mat')
 
 %% GLipSDP
 % 

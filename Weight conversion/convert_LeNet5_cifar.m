@@ -2,7 +2,7 @@ close all
 clear all
 clc
 
-load('weights_cifar_LeNet5.mat')
+load('New_weights_with_weight_decay/weights_cifar_LeNet5_wd.mat')
 
 W{1} = double(weights.('conv1.weight'));
 W{2} = double(weights.('conv2.weight'));
