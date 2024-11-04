@@ -2,9 +2,9 @@ close all
 clear all
 clc
 
-load('models/weights_cifar_6C2F_wd_con.mat')
+load('models/weights_cifar_6C2F_wd_2_con.mat')
 
-savepath = 'results/cifar_6C2F_wd.mat';
+savepath = 'results/cifar_6C2F_wd_2.mat';
 
 %% S-GLipSDP
 
@@ -47,7 +47,7 @@ NN4.layers = {'fc','fc'};
 %Lip5 = norm(W{7});
 %Lip6 = norm(W{8});
 
-Lip_S_GLipSDP = Lip1*Lip2*Lip3*Lip4;;
+Lip_S_GLipSDP = Lip1*Lip2*Lip3*Lip4;
 time_S_GLipSDP = time1+time2+time3+time4
 
 Lip_S_GLipSDP
@@ -59,13 +59,13 @@ save(savepath)
 W_fc{1} = conv2fc(W{1},30,30,1,1);
 W_fc{2} = conv2fc(W{2},30,30,1,1);
 W_fc{3} = conv2fc(W{3},30,30,2,1);
-W_fc{4} = conv2fc(W{1},16,16,1,1);
-W_fc{5} = conv2fc(W{2},16,16,1,1);
-%W_fc{6} = conv2fc(W{4},16,16,2,0);
+W_fc{4} = conv2fc(W{4},16,16,1,1);
+W_fc{5} = conv2fc(W{5},16,16,1,1);
+%W_fc{6} = conv2fc(W{6},16,16,2,0);
 
-[Lip1_LipSDP,info1_LipSDP,time1_LipSDP] = LipschitzEstimationFazlyab(W_c2fc(1:2));
-[Lip2_LipSDP,info2_LipSDP,time2_LipSDP] = LipschitzEstimationFazlyab(W_c2fc(3:4));
-[Lip3_LipSDP,info3_LipSDP,time3_LipSDP] = LipschitzEstimationFazlyab(W_c2fc(5:6));
+[Lip1_LipSDP,info1_LipSDP,time1_LipSDP] = LipschitzEstimationFazlyab(W_fc(1:2));
+[Lip2_LipSDP,info2_LipSDP,time2_LipSDP] = LipschitzEstimationFazlyab(W_fc(3:4));
+[Lip3_LipSDP,info3_LipSDP,time3_LipSDP] = LipschitzEstimationFazlyab(W_fc(5:6));
 [Lip4_LipSDP,info4_LipSDP,time4_LipSDP] = LipschitzEstimationFazlyab(W(7:8));
 
 Lip_S_LipSDP = Lip1_LipSDP*Lip2_LipSDP*Lip3_LipSDP*Lip4_LipSDP;

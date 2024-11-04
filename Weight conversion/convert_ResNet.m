@@ -2,7 +2,7 @@ close all
 clear all
 clc
 
-load('New_weights_with_weight_decay/weights_mnist_res_wd.mat')
+load('New_weights_with_weight_decay/weights_mnist_res_wd_7.mat')
 
 W{1} = double(weights.('conv1.weight'));
 W{2}{1} = double(weights.('layer1.0.conv1.weight'));

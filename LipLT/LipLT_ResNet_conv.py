@@ -2,7 +2,7 @@ import torch
 from compute_lip import *
 import numpy as np
 
-ckpt = torch.load('models/mnist_resnet18_wd.pth','cpu')
+ckpt = torch.load('models/mnist_resnet18_wd_7.pth','cpu')
 
 items_list = list(ckpt.items())
 N = 100

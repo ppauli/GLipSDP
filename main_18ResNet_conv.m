@@ -3,9 +3,9 @@ clear all
 clc
 
 % Load model
-load('models/weights_mnist_res_wd_con.mat')
+load('models/weights_mnist_res_wd_7_con.mat')
 
-savepath = 'results/mnist_ResNet_conv_wd.mat';
+savepath = 'results/mnist_ResNet_conv_wd_7.mat';
 
 W{1}=0.1*W{1}; % This trick changes the conditioning of the problem
 W{10}=0.1*W{10}; % It is less likely to run into numerical problems
