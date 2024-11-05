@@ -3,9 +3,9 @@ clear all
 clc
 
 % Load model
-load('models/weights_mnist_4C3F_wd_4_con.mat')
+load('models/weights_mnist_4C3F_wd_8_con.mat');
 
-savepath = 'results/mnist_4C3F_wd_4.mat';
+savepath = 'results/mnist_4C3F_wd_8.mat';
 
 %% GLipSDP
 % 
@@ -37,21 +37,22 @@ NNconv.pool_kernel  = [0,0,0,0];
 
 [Lip_conv,info_conv,time_conv] = LipEst(NNconv);
 
-tic
-Lip_fc1 = norm(W{5});
-time_fc1 = toc;
+%tic
+%Lip_fc1 = norm(W{5});
+%time_fc1 = toc;
 
 NNfc = init_NN;
 NNfc.layers = {'subn_fc'};
 
-W2{1}{1} = W{6};
-W2{1}{2} = W{7};
+W2{1}{1} = W{5};
+W2{1}{2} = W{6};
+W2{1}{3} = W{7};
 NNfc.weights = W2;
 
-[Lip_fc2,info_fc2,time_fc2] = LipEst(NNfc);
+[Lip_fc,info_fc,time_fc] = LipEst(NNfc);
 
-Lip_S_GLipSDP = Lip_conv*Lip_fc1*Lip_fc2;
-time_S_GLipSDP = time_conv+time_fc1+time_fc2;
+Lip_S_GLipSDP = Lip_conv*Lip_fc;
+time_S_GLipSDP = time_conv+time_fc;
 
 Lip_S_GLipSDP
 
@@ -79,6 +80,8 @@ for ii = 1:length(W)
 end
 
 Lip_MP
+
+save(savepath)
 
 %% S-LipSDP
 
