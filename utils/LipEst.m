@@ -100,7 +100,9 @@ switch layer
 end
 cons = [cons,con];
 
-sol = optimize(cons,rho);
+ops = sdpsettings('solver','mosek','verbose',1,'debug',1); 
+
+sol = optimize(cons,rho,ops);
 
 Lip = sqrt(value(rho))/cond^depth2;
 info = sol.info;

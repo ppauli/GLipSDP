@@ -38,9 +38,15 @@ Lip3 = norm(W_fc{6});
 time3 = toc
 
 NN4 = init_NN;
+NN4.layers = {'subn_fc'};
 
-NN4.weights = W(7:8);
-NN4.layers = {'fc','fc'};
+W2{1}{1} = W{7};
+W2{1}{2} = W{8};
+NN4.weights = W2;
+
+
+%NN4.weights = W(7:8);
+%NN4.layers = {'fc','fc'};
 [Lip4,info4,time4] = LipEst(NN4);
 
 %Lip4 = norm(W_fc{6});
