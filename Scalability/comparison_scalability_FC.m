@@ -4,8 +4,8 @@ close all
 clear all
 clc
 
-c_vec = [8,16,32,64,128]; % channel sizes
-depth = [4,8,16,32];
+c_vec = [16,32,64]; % channel sizes
+depth = [2,4,8,16,32,64];
 
 for jj = 1:length(c_vec)
     jj
@@ -22,10 +22,21 @@ for jj = 1:length(c_vec)
         NN.weights = W;
         
         %% GLipSDP
-        [L_SDP, info_SDP, time_SDP] = LipEst(NN);
-        L_SDP_mat(jj,kk) = L_SDP
-        info_SDP_mat{jj,kk} = info_SDP
-        time_SDP_mat(jj,kk) = time_SDP
+        NN.weights = W;
+        [L_GLipSDP,info_GlipSDP,time_GLipSDP] = LipEst(NN);
+        L_GLipSDP_mat(jj,kk) = L_GLipSDP
+        info_GLipSDP_mat{jj,kk} = info_GlipSDP
+        time_GLipSDP_mat(jj,kk) = time_GLipSDP
+
+        %% GLipSDP Subnetworks
+        NN = init_NN;
+        NN.layers{1} = 'subn_fc';
+        NN.weights{1} = W;
+        
+        [L_GLipSDP_2,info_GlipSDP_2,time_GLipSDP_2] = LipEst(NN);
+        L_GLipSDP_2_mat(jj,kk) = L_GLipSDP_2
+        info_GLipSDP_2_mat{jj,kk} = info_GlipSDP_2
+        time_GLipSDP_2_mat(jj,kk) = time_GLipSDP_2
         
         %% MP
         L_triv = 1;
@@ -33,15 +44,16 @@ for jj = 1:length(c_vec)
             L_triv = L_triv * norm(W{ii});
         end
         L_triv_mat(jj,kk) = L_triv
+        %% LipLT
+        [L_LipLT, time_LipLT] = LipLT(W);
+        L_LipLT_mat(jj,kk) = L_LipLT
+        time_LipLT_mat(jj,kk) = time_LipLT;
         %% LipSDP
         [L_LipSDP, info_LipSDP, time_LipSDP] = LipschitzEstimationFazlyab(W);
         L_LipSDP_mat(jj,kk) = L_LipSDP
         info_LipSDP_mat{jj,kk} = info_LipSDP
         time_LipSDP_mat(jj,kk) = time_LipSDP;
-        %% LipLT
-        [L_LipLT, time_LipLT] = LipLT(W);
-        L_LipLT_mat(jj,kk) = L_LipLT
-        time_LipLT_mat(jj,kk) = time_LipLT;
+
     end
 end
 
