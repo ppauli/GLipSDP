@@ -2,7 +2,7 @@ import torch
 from compute_lip import *
 import numpy as np
 
-ckpt = torch.load('models/mnist_4C3F_wd_9.pth','cpu')
+ckpt = torch.load('models/mnist_4C3F_wd_8.pth','cpu')
 
 items_list = list(ckpt.items())
 

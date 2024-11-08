@@ -2,9 +2,9 @@ close all
 clear all
 clc
 
-load('models/weights_cifar_6C2F_wd_2_con.mat')
+load('models/weights_cifar_6C2F_wd_7_con.mat')
 
-savepath = 'results/cifar_6C2F_wd_2.mat';
+savepath = 'results/cifar_6C2F_wd_7.mat';
 
 %% S-GLipSDP
 
