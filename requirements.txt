@@ -1,4 +1,0 @@
-torch
-scikit-learn
-scipy
-numpy

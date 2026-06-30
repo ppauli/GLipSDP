@@ -1,5 +1,0 @@
-run_name,model,instance,weights_path,num_samples,max_pairs,num_jacobian_samples,pairwise_lower_bound,best_pair,jacobian_lower_bound,best_jacobian_sample_index,combined_lower_bound
-LeNet5ReLU_instance1,LeNet5ReLU,1,Versatility/models/weights_pt/LeNet5ReLU_instance1.pt,1000,200000,100,4.8461639585581775,"(871, 248)",9.519376754760742,243,9.519376754760742
-2C2F_instance1,2C2F,1,Versatility/models/weights_pt/2C2F_instance1.pt,1000,200000,100,3.8134209094893263,"(2, 717)",6.885648250579834,363,6.885648250579834
-FC-R18_instance1,FC-R18,1,Versatility/models/weights_pt/FC-R18_instance1.pt,1000,200000,100,3.5143885869621445,"(912, 972)",12.51425838470459,988,12.51425838470459
-C-R18_instance1,C-R18,1,Versatility/models/weights_pt/C-R18_instance1.pt,1000,200000,100,4.759835217491539,"(528, 198)",16.341062545776367,832,16.341062545776367
