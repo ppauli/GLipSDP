@@ -1,0 +1,81 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.12941,0.12941,0.12941}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=2.503in,
+height=1.354in,
+at={(0.42in,0.229in)},
+scale only axis,
+xmode=log,
+xmin=2,
+xmax=16,
+xtick={ 2,  4,  8, 16},
+xminorticks=true,
+xlabel style={font=\color{mycolor1}},
+xlabel={depth},
+ymode=log,
+ymin=0.132263833333333,
+ymax=10000,
+yminorticks=true,
+ylabel style={font=\color{mycolor1}},
+ylabel={time},
+axis background/.style={fill=white},
+legend style={at={(0.5,1.03)}, anchor=south, legend columns=3, legend cell align=left, align=left}
+]
+\addplot [color=violet]
+  table[row sep=crcr]{%
+2	0.132263833333333\\
+4	0.302111291666667\\
+8	0.31021175\\
+16	0.887601041666667\\
+};
+\addlegendentry{$c=8$}
+
+\addplot [color=teal]
+  table[row sep=crcr]{%
+2	1.58017395833333\\
+4	4.25855216666667\\
+8	4.66524291666667\\
+16	16.26398475\\
+};
+\addlegendentry{$c=16$}
+
+\addplot [color=red!50!green]
+  table[row sep=crcr]{%
+2	24.412068125\\
+4	124.284211583333\\
+8	268.572564375\\
+16	547.983405833333\\
+};
+\addlegendentry{$c=32$}
+
+\addplot [color=violet, dashed, forget plot]
+  table[row sep=crcr]{%
+2	0.18726675\\
+4	2.66139370833333\\
+8	7.16799158333333\\
+16	15.4746828333333\\
+};
+\addplot [color=teal, dashed, forget plot]
+  table[row sep=crcr]{%
+2	2.78649458333333\\
+4	13.761712\\
+8	47.8457154166667\\
+16	409.325562791667\\
+};
+\addplot [color=red!50!green, dashed, forget plot]
+  table[row sep=crcr]{%
+2	53.6854664166667\\
+4	481.24144\\
+8	2383.88213566667\\
+16	0\\
+};
+\end{axis}
+\end{tikzpicture}%
