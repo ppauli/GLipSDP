@@ -2,7 +2,8 @@ function M = getRoesser(K,s)
 
 [cout,cin,l1,l2] = size(K);
 
-mat = reshape(permute(K(:, :, end:-1:1, end:-1:1), [1, 3, 2, 4]), [], l2*cin);
+%mat = reshape(permute(K(:, :, end:-1:1, end:-1:1), [1, 3, 2, 4]), [], l2*cin);
+mat = reshape(permute(K, [1, 3, 2, 4]), [], l2*cin);
 mat1 = [zeros(cout,cout*ceil((l1-s)/s)); eye(cout*ceil((l1-s)/s))];
 mat2 = [zeros(cin*(l2-s),cin*s),eye(cin*(l2-s))];
 

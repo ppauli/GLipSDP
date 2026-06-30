@@ -7,3 +7,4 @@ NN.strides      = [];
 NN.pool_strides = [];
 NN.pool_kernel  = [];
 NN.cond = 1;
+NN.glob_loc = 'global';

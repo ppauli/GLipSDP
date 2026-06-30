@@ -1,0 +1,93 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.12941,0.12941,0.12941}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=2.503in,
+height=1.354in,
+at={(0.42in,0.229in)},
+scale only axis,
+xmode=log,
+xmin=2,
+xmax=64,
+xtick={  2,   4,   8,  16,  32,  64, 128},
+xminorticks=true,
+xlabel style={font=\color{mycolor1}},
+xlabel={depth},
+ymode=log,
+ymin=0.005167,
+ymax=830.362656916667,
+yminorticks=true,
+ylabel style={font=\color{mycolor1}},
+ylabel={time},
+axis background/.style={fill=white},
+legend style={at={(0.5,1.03)}, anchor=south, legend columns=3, legend cell align=left, align=left}
+]
+\addplot [color=violet]
+  table[row sep=crcr]{%
+2	0.387283375\\
+4	1.898206125\\
+8	5.09328779166667\\
+16	14.123097125\\
+32	29.3802466666667\\
+64	65.9176262916667\\
+};
+\addlegendentry{$c=16$}
+
+\addplot [color=teal]
+  table[row sep=crcr]{%
+2	0.0440697083333333\\
+4	0.153634875\\
+8	0.368116208333333\\
+16	0.822943125\\
+32	1.95787666666667\\
+64	3.95124654166667\\
+};
+\addlegendentry{$c=32$}
+
+\addplot [color=red!50!green]
+  table[row sep=crcr]{%
+2	0.007807875\\
+4	0.0172570416666667\\
+8	0.0391575833333333\\
+16	0.08710075\\
+32	0.204651541666667\\
+64	0.377536375\\
+};
+\addlegendentry{$c=64$}
+
+\addplot [color=violet, dashed, forget plot]
+  table[row sep=crcr]{%
+2	0.112313458333333\\
+4	0.831807208333333\\
+8	2.849812375\\
+16	12.1487569166667\\
+32	96.137848\\
+64	830.362656916667\\
+};
+\addplot [color=teal, dashed, forget plot]
+  table[row sep=crcr]{%
+2	0.0176515416666667\\
+4	0.0809594166666667\\
+8	0.421719458333333\\
+16	2.696503\\
+32	11.28269675\\
+64	83.7131254166667\\
+};
+\addplot [color=red!50!green, dashed, forget plot]
+  table[row sep=crcr]{%
+2	0.005167\\
+4	0.0166065416666667\\
+8	0.0659480833333333\\
+16	0.386701083333333\\
+32	2.25208925\\
+64	9.76895875\\
+};
+\end{axis}
+\end{tikzpicture}%
